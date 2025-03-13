@@ -15,6 +15,7 @@ import Input from "../inputs/Input";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { CountrySelectValue } from "../inputs/CountrySelect";
 
 
 enum STEPS{
@@ -67,11 +68,11 @@ const  RentModal =() =>{
         ssr:false
     }),[location]);
 
-    const setCustomValue = (id:string,value:any ) =>{
-        setValue(id,value,{
-            shouldValidate:true,
-            shouldDirty:true,
-            shouldTouch:true,
+    const setCustomValue = (id: string, value: string | number | null | CountrySelectValue) => {
+        setValue(id, value, {
+            shouldValidate: true,
+            shouldDirty: true,
+            shouldTouch: true,
         })
     }
 
@@ -250,7 +251,6 @@ const  RentModal =() =>{
                 <Input 
                     id="price"
                     label="Price"
-                    formatPrice={true}
                     type="number"
                     disabled={isLoading}
                     register={register}
@@ -263,14 +263,15 @@ const  RentModal =() =>{
     
     return(
         <Modal
-        isOpen={rentModal.isOpen}
-        onClose={rentModal.onClose}
-        onSubmit={handleSubmit(onSubmit)}
-        actionLabel={actionLabel}
-        secondaryActionLabel={secondaryActionLabel}
-        secondaryAction={ step === STEPS.CATEGORY ? undefined : onBack}
-        title="Airbnb your home!"
-        body={bodyContent}
+            isOpen={rentModal.isOpen}
+            onClose={rentModal.onClose}
+            onSubmit={handleSubmit(onSubmit)}
+            actionLabel={actionLabel}
+            secondaryActionLabel={secondaryActionLabel}
+            secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
+            title="Airbnb your home!"
+            body={bodyContent}
+            disabled={isLoading}
         />
     );
 }
