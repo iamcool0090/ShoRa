@@ -31,9 +31,12 @@ interface ListingQuery {
 }
 
 export default async function getListings(
-    params : IListingsParams
+    params: IListingsParams
 ) {
-    try{
+    try {
+        // Ensure params is properly typed and handled
+        const searchParams = await Promise.resolve(params);
+        
         const {
             userId,
             guestCount,
@@ -43,7 +46,7 @@ export default async function getListings(
             endDate,
             locationValue,
             category
-        } = params;
+        } = searchParams;
 
         const query: ListingQuery = {};
 
