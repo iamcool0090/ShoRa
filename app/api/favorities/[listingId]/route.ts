@@ -10,7 +10,7 @@ interface Params {
 
 export async function POST(
     request: NextRequest,
-    { params }: { params: Params }
+    context: { params: Params }
 ) {
     const currentUser = await getCurrentUser();
 
@@ -18,7 +18,7 @@ export async function POST(
         return NextResponse.error();
     }
 
-    const { listingId } = params;
+    const { listingId } = context.params;
 
     if (!listingId || typeof listingId !== 'string') {
         throw new Error('Invalid listingId');
@@ -41,7 +41,7 @@ export async function POST(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: Params }
+    context: { params: Params }
 ) {
     const currentUser = await getCurrentUser();
 
@@ -49,7 +49,7 @@ export async function DELETE(
         return NextResponse.error();
     }
 
-    const { listingId } = params;
+    const { listingId } = context.params;
 
     if (!listingId || typeof listingId !== 'string') {
         throw new Error('Invalid listingId');
