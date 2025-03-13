@@ -23,7 +23,7 @@ export async function POST(
         throw new Error('Invalid listingId');
     }
 
-    let favoriteIds = [...(currentUser.favoriteIds || [])];
+    const favoriteIds = [...(currentUser.favoriteIds || [])];
 
     favoriteIds.push(listingId);
 

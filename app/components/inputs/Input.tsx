@@ -3,7 +3,6 @@
 import {
     FieldErrors,
     FieldValues,
-    useFormRegister
 } from "react-hook-form";
 import { BiDollar }  from 'react-icons/bi';
 

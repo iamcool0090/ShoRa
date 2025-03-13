@@ -45,7 +45,7 @@ const useFavorite = ({
             await request();
             router.refresh();
             toast.success('Success!');
-        }catch(error){
+        }catch{
             toast.error('Failed to update favorite');
         }
     },
@@ -63,7 +63,6 @@ const useFavorite = ({
     };
     
 }
-
 
 export default useFavorite;
 
