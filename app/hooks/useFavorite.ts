@@ -37,15 +37,15 @@ const useFavorite = ({
             let request;
 
             if(hasFavorited){
-                request = () => axios.delete(`/api/favorities/${listingId}`);
+                request = () => axios.delete(`/api/favorites/${listingId}`);
             }else{
-                request = () => axios.post(`/api/favorities/${listingId}`);
+                request = () => axios.post(`/api/favorites/${listingId}`);
             }
 
             await request();
             router.refresh();
             toast.success('Success!');
-        }catch{
+        }catch(error){
             toast.error('Failed to update favorite');
         }
     },
