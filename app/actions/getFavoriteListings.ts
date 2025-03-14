@@ -24,7 +24,7 @@ export default async function getFavoriteListings(){
         }));
         
         return safeFavorites;
-    } catch (error : any) {
-        throw new Error(error);
+    } catch (error: Error | unknown) {
+        throw new Error(error instanceof Error ? error.message : 'An error occurred');
     }
 }

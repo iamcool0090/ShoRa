@@ -3,7 +3,6 @@ import { NextRequest } from "next/server";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
-import { Params } from "next/dist/server/request/params";
 
 interface IParams {
     listingId?: string;
@@ -25,7 +24,7 @@ export async function POST(
         throw new Error('Invalid listingId');
     }
 
-    let favoriteIds = [...(currentUser.favoriteIds || [])];
+    const favoriteIds = [...(currentUser.favoriteIds || [])];
     favoriteIds.push(listingId);
 
     const user = await prisma.user.update({
