@@ -6,32 +6,49 @@ import EmptyState from "@/app/components/EmptyState";
 import ListingClient from "./ListingClient";
 import getReservations from "@/app/actions/getReservations";
 
-interface IParams{
+interface IParams {
     listingId?: string;
 }
 
-const ListingPage = async({params}:{params:IParams}) => {
-    const listing = await getListingById(params)
-    const reservations = await getReservations(params);
-    const currentUser = await getCurrentUser()
+interface ListingPageProps {
+    params: IParams; // Ensure params is explicitly typed as an object
+}
 
-    if(!listing){
-        return(
+const ListingPage = async ({ params }: ListingPageProps) => {
+    const { listingId } = params; // Ensure we're using an object, not a promise
+
+    if (!listingId) {
+        return (
             <ClientOnly>
                 <EmptyState />
             </ClientOnly>
-        )
+        );
+    }
+
+    // Fetch data concurrently
+    const [listing, reservations, currentUser] = await Promise.all([
+        getListingById({ listingId }),
+        getReservations({ listingId }),
+        getCurrentUser(),
+    ]);
+
+    if (!listing) {
+        return (
+            <ClientOnly>
+                <EmptyState />
+            </ClientOnly>
+        );
     }
 
     return (
         <ClientOnly>
-            <ListingClient 
-                listing = {listing}
+            <ListingClient
+                listing={listing}
                 reservations={reservations}
-                currentUser = {currentUser}
+                currentUser={currentUser}
             />
         </ClientOnly>
     );
-}
+};
 
 export default ListingPage;
